@@ -15,7 +15,7 @@ public class FilmeTest {
 		
 		Filme u = new Filme(1, "teste", "teste", "teste", "teste", "teste",
 				"teste", "teste", "teste");
-		u.addListaElenco("teste2");
+		u.addListaElenco("teste2"); 
 
 		filmeDao.insert(u);
 		filmeDao.desconectar();
