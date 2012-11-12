@@ -1,0 +1,62 @@
+-- Database: filme
+
+-- DROP DATABASE filme;
+
+CREATE DATABASE filme
+  WITH OWNER = postgres
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'Portuguese_Brazil.1252'
+       LC_CTYPE = 'Portuguese_Brazil.1252'
+       CONNECTION LIMIT = -1;
+
+-- Table: genero
+
+-- DROP TABLE genero;
+
+CREATE TABLE genero
+(
+  id_genero serial NOT NULL,
+  acao boolean,
+  animacao boolean,
+  aventura boolean,
+  comedia boolean,
+  documentarios boolean,
+  drama boolean,
+  erotico boolean,
+  fantasia boolean,
+  "ficcaoCientifica" boolean,
+  series boolean,
+  guerra boolean,
+  musical boolean,
+  policial boolean,
+  romance boolean,
+  suspense boolean,
+  terror boolean,
+  CONSTRAINT genero_pkey PRIMARY KEY (id_genero)
+  
+  -- Table: filme
+
+-- DROP TABLE filme;
+
+CREATE TABLE filme
+(
+  id_filme serial NOT NULL,
+  titulo character varying(255),
+  direcao character varying(255),
+  duracao character varying(50),
+  classificacao character varying(50),
+  distribuidor character varying(255),
+  sinopse character varying(500),
+  elenco character varying(255),
+  genero_id integer,
+  CONSTRAINT filme_pkey PRIMARY KEY (id_filme),
+  CONSTRAINT filme_genero_id_fkey FOREIGN KEY (genero_id)
+      REFERENCES genero (id_genero) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT filme_titulo_key UNIQUE (titulo)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE filme

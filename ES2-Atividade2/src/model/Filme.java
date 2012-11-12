@@ -1,11 +1,9 @@
 package model;
 
-import java.util.ArrayList;
 
 public class Filme {
 
 	private String titulo;
-	private String genero;
 	private String elenco;
 	private String direcao;
 	private String duracao;
@@ -13,23 +11,22 @@ public class Filme {
 	private String distribuidor;
 	private String sinopse;
 	private int id;
+	private Genero genero;
 	
-	ArrayList listaElenco = new ArrayList();
 
-	public Filme(int id, String titulo, String genero, String elenco, String direcao,
+	public Filme(int id, String titulo, Genero genero, String elenco, String direcao,
 			String duracao, String classificacao, String distribuidor,
 			String sinopse) {
 		super();
-		setTitulo(titulo);
-		setGenero(genero);
-		listaElenco.add(classificacao);
+		setTitulo(titulo);		
 		setDirecao(direcao);
 		setDuracao(duracao);
 		setClassificacao(classificacao);
 		setDistribuidor(distribuidor);
 		setSinopse(sinopse);
+		setElenco(elenco);
 		setId(id);
-		
+		setGenero(genero);		
 	}
 
 	public String getTitulo() {
@@ -40,17 +37,6 @@ public class Filme {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-
-
-	public String getGenero() {
-		return genero;
-	}
-
-
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
-
 
 	public String getElenco() {
 		return elenco;
@@ -110,11 +96,6 @@ public class Filme {
 	public void setSinopse(String sinopse) {
 		this.sinopse = sinopse;
 	}
-	
-
-	public void addListaElenco(String elenco){
-		listaElenco.add(elenco);
-	}
 
 	public int getId() {
 		return id;
@@ -124,14 +105,21 @@ public class Filme {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "Filme [titulo=" + titulo + ", genero=" + genero + ", direcao="
-				+ direcao + ", duracao=" + duracao + ", classificacao="
-				+ classificacao + ", distribuidor=" + distribuidor
-				+ ", sinopse=" + sinopse + ", listaElenco=" + listaElenco + "]";
+	public Genero getGenero() {
+		return genero;
 	}
 
-	
+	public void setGenero(Genero genero) {
+		this.genero = genero;
+	}
+
+	@Override
+	public String toString() {
+		return "Filme [titulo=" + titulo + ", elenco=" + elenco + ", direcao="
+				+ direcao + ", duracao=" + duracao + ", classificacao="
+				+ classificacao + ", distribuidor=" + distribuidor
+				+ ", sinopse=" + sinopse + ", id=" + id + ", genero=" + genero
+				+ "]";
+	}		
 	
 }
