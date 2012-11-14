@@ -80,14 +80,16 @@ public class Principal extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Action editar
+				EditarFilmeView editarFilmeView = new EditarFilmeView();
+				editarFilmeView.setSize(550, 340);
+				editarFilmeView.setVisible(true);
 			}
 		});
 
 	}
 
 	private void botaoSair() {
-		btnEditar.addActionListener(new AbstractAction() {
+		btnSair.addActionListener(new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 			//FIXME: Ainda não está funcionando.
 			@Override
