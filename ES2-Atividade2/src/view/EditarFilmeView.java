@@ -1,75 +1,84 @@
 package view;
 
-import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 
 import model.Filme;
+import model.Genero;
 import dao.FilmeDao;
+import dao.GeneroDao;
 
 public class EditarFilmeView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	String[][] dados;
 
-	
+	String[] colunas = new String[] { "id", "titulo", "elenco", "duracao",
+			"classificacao", "distribuidor", "sinopse", "genero" };
+
+	DefaultTableModel modelo = new DefaultTableModel(dados, colunas);
+	JTable jtable = new JTable(modelo);
+
+	JButton btnEditar;
+	JButton btnDeletar;
+	private JComboBox cmbxGenero;
+
 	public EditarFilmeView() {
-		
-		AbstractTableModel tableModel = new AbstractTableModel() {
-			private static final long serialVersionUID = 1L;
+		btnEditar = new JButton("Cadastrar");
+		btnDeletar = new JButton("Cancelar");
 
-			@Override
-			public Object getValueAt(int arg0, int arg1) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-			
-			@Override
-			public int getRowCount() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public int getColumnCount() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-		};
-
-		//tableModel.setData(getValor());
-		//tableModel.setEditableDefault(true);
-
-		JTable table = new JTable(tableModel);
-		JFrame frame = new JFrame("ObjectTableModel");
-		JScrollPane pane = new JScrollPane();
-		pane.setViewportView(table);
-		pane.setPreferredSize(new Dimension(400, 200));
-		frame.add(pane);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		adicionaLinha();
+		add(jtable);
 	}
-	
-	public List<Filme> getValor() {
+
+	public void adicionaLinha() {
+
+		// Obtem o modelo da JTable
+		DefaultTableModel modelo = (DefaultTableModel) jtable.getModel();
+		preencherComboBox();
 		FilmeDao filmeDao = new FilmeDao();
 		filmeDao.conectar();
 		Collection<Filme> filmeCol = filmeDao.select();
-		List<Filme> list = new ArrayList<Filme>();
-
+		
+		
 		for (Filme filme : filmeCol) {
-			list.add(filme);
+			modelo.addRow(new String[] { "'" + filme.getId() + "'",
+					"'" + filme.getTitulo() + "'",
+					"'" + filme.getElenco() + "'",
+					"'" + filme.getDuracao() + "'",
+					"'" + filme.getClassificacao() + "'",
+					"'" + filme.getDistribuidor() + "'",
+					"'" + filme.getSinopse() + "'",
+					"'" + filme.getGenero().getId() + "'" });
 		}
 
 		filmeDao.desconectar();
 		
-		return list;
+		
+	}
+
+	//FIXME: Preencher Genero para colocar na tabela.. 
+	public void preencherComboBox() {
+		// ---------- Instancia Combo e preenche com valores do Banco
+
+		GeneroDao generoDao = new GeneroDao();
+		generoDao.conectar();
+		Collection<Genero> c = generoDao.select();
+
+		cmbxGenero = new JComboBox();
+
+		for (Genero genero : c) {
+			Genero r = genero;
+			cmbxGenero.addItem(r.getId());
+		}
+
+		generoDao.desconectar();
 	}
 
 }
