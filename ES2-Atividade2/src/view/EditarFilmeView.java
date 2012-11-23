@@ -7,7 +7,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 
 import model.Filme;
 import model.Genero;
@@ -45,8 +44,7 @@ public class EditarFilmeView extends JFrame {
 		FilmeDao filmeDao = new FilmeDao();
 		filmeDao.conectar();
 		Collection<Filme> filmeCol = filmeDao.select();
-		
-		
+
 		for (Filme filme : filmeCol) {
 			modelo.addRow(new String[] { "'" + filme.getId() + "'",
 					"'" + filme.getTitulo() + "'",
@@ -59,11 +57,10 @@ public class EditarFilmeView extends JFrame {
 		}
 
 		filmeDao.desconectar();
-		
-		
+
 	}
 
-	//FIXME: Preencher Genero para colocar na tabela.. 
+	// FIXME: Preencher Genero para colocar na tabela..
 	public void preencherComboBox() {
 		// ---------- Instancia Combo e preenche com valores do Banco
 
