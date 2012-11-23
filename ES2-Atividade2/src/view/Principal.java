@@ -33,7 +33,7 @@ public class Principal extends JFrame {
 		btnCadastrar = new JButton("Cadastrar");
 		this.getRootPane().setDefaultButton(btnCadastrar);
 
-		btnEditar = new JButton("Editar");
+		btnEditar = new JButton("Consultar");
 		btnSair = new JButton("Sair");
 
 		opcoes = new JPanel(new GridLayout(2, 1));
